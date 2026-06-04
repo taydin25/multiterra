@@ -17,12 +17,12 @@ public class CustomerController {
         this.customerRepository = customerRepository;
     }
 
-    @GetMapping
+    @GetMapping("/getAllCustomers")
     public List<Customer> getAllCustomers() {
         return customerRepository.findAll();
     }
 
-    @PostMapping
+    @PostMapping("/createCustomer")
     public Customer createCustomer(@RequestBody Customer customer) {
         return customerRepository.save(customer);
     }
