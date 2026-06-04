@@ -32,8 +32,15 @@ public class CustomerController {
         return customerRepository.findById(id).orElse(null);
     }
 
+    @GetMapping("/getCustomerByNationalId/{nationalId}")
+    public Customer getCustomerByNationalId(@PathVariable String nationalId) {
+        return customerRepository.findByNationalId(nationalId).orElse(null);
+    }
+
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable UUID id) {
         customerRepository.deleteById(id);
     }
+
+
 }
