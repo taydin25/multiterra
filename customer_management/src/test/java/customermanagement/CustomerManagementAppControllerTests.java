@@ -29,7 +29,7 @@ class CustomerManagementAppControllerTests {
         }
         """;
 
-        mockMvc.perform(post("/customermanagement/customers")
+        mockMvc.perform(post("/customermanagement/customers/createCustomer")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(json))
                 .andExpect(status().isOk());
