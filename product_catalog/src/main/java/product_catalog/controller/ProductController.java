@@ -9,14 +9,15 @@ import product_catalog.repository.ProductRepository;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/productcatalog")
 @RequiredArgsConstructor
 public class ProductController {
 
     private final ProductRepository productRepository;
 
-    @GetMapping
+    @GetMapping("/getAllProducts")
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
