@@ -22,13 +22,20 @@ public class Customer {
     private String surname;
     private String email;
     private String phone_number;
-    @Column(name = "address_id", unique = true)
-    private UUID addressId;
     @Column(name = "national_id", unique = true)
     private String nationalId;
     private String status; // ACTIVE, INACTIVE
     private String type;
     private LocalDateTime created_date;
     private LocalDateTime updated_date;
+    //ADDRESS
+    private String country;
+    private String city;
+    private String district;
+    private String address;
+    private String fullAddress;
+    //AUTH
+    private String username;
+    private String password;
 
 }

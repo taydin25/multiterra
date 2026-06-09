@@ -54,10 +54,78 @@ function ProductManagement() {
     0
   );
 
+ const createOrder = async () => {
+  try {
+
+    const groupedItems = Object.values(
+      cart.reduce((acc: any, item: any) => {
+
+        const key = item.productCode;
+
+        if (!acc[key]) {
+          acc[key] = {
+            productCode: item.productCode,
+            productName: item.productName,
+            quantity: 1,
+            unitPrice: Number(item.price),
+            totalPrice: Number(item.price)
+          };
+        } else {
+          acc[key].quantity += 1;
+          acc[key].totalPrice += Number(item.price);
+        }
+
+        return acc;
+      }, {})
+    );
+
+    const totalPrice = groupedItems.reduce(
+      (sum: number, item: any) => sum + item.totalPrice,
+      0
+    );
+
+    const orderRequest = {
+      customerId: "123e4567-e89b-12d3-a456-426614174000",
+      shippingAddress: "Kadıköy, İstanbul",
+      note: "Web üzerinden oluşturuldu.",
+      currency: "TRY",
+      items: groupedItems,
+      totalPrice
+    };
+
+    const response = await fetch(
+      "http://localhost:8083/ordermanagement/createOrder",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(orderRequest)
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Order creation failed");
+    }
+
+    const data = await response.json();
+
+    console.log(data);
+
+    alert("Order created successfully");
+
+    setCart([]);
+
+  } catch (error) {
+    console.error(error);
+    alert("Order creation failed");
+  }
+};
+
   return (
     <div className="page-layout">
       <div className="product-container">
-        <h1>Product Management</h1>
+        <h1>Products</h1>
 
         <div className="search-container">
           <input
@@ -152,7 +220,10 @@ function ProductManagement() {
 
             <h3>Total: {totalPrice.toFixed(2)}</h3>
 
-            <button className="checkout-btn">
+            <button 
+             className="checkout-btn"
+            onClick={createOrder}
+             >
               Create Order
             </button>
           </>

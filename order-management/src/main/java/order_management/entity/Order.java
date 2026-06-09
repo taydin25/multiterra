@@ -1,32 +1,46 @@
 package order_management.entity;
 
-import lombok.Data;
+import lombok.*;
+import order_management.enums.OrderStatus;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 @Data
 @Document(collection = "order_info")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Order {
 
     @Id
-    private String id;
+    private UUID id;
 
-    @Field("orderId")
-    private String orderId;
+    private String orderNumber;
 
-    @Field("customerId")
-    private String customerId;
+    private UUID customerId;
 
     private List<OrderItem> items;
 
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
-    private String status;
+    private String currency;
+
+    private OrderStatus status;
 
     private LocalDateTime orderDate;
+
+    private LocalDateTime createdDate;
+
+    private LocalDateTime updatedDate;
+
+    private String shippingAddress;
+
+    private String note;
 }

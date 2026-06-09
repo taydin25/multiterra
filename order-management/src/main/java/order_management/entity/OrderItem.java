@@ -1,21 +1,30 @@
 package order_management.entity;
 
-import lombok.Data;
+import lombok.*;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
+@Document(collection = "order_items")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class OrderItem {
 
-    @Id
-    private UUID orderItemId;
+    //private UUID id;
 
-    private UUID productId;
+    private String productCode;
 
     private String productName;
 
     private Integer quantity;
 
-    private Double price;
+    private BigDecimal unitPrice;
+
+    private BigDecimal totalPrice;
 }

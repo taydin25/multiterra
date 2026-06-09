@@ -59,6 +59,8 @@ function Navbar() {
         >
           Orders
         </Link>
+
+        <Link to="/register-customer">Become a Customer</Link>
       </div>
     </nav>
   );

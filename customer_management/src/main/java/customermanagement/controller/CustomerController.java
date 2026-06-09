@@ -1,13 +1,15 @@
 package customermanagement.controller;
 
 import customermanagement.entity.Customer;
+import customermanagement.enums.CustomerStatus;
 import customermanagement.repository.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("customermanagement/customers")
 public class CustomerController {
@@ -25,6 +27,11 @@ public class CustomerController {
 
     @PostMapping("/createCustomer")
     public Customer createCustomer(@RequestBody Customer customer) {
+
+        customer.setStatus(String.valueOf(CustomerStatus.INACTIVE));
+        customer.setCreated_date(LocalDateTime.now());
+        customer.setUpdated_date(LocalDateTime.now());
+
         return customerRepository.save(customer);
     }
 

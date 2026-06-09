@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@CrossOrigin(origins = "http://localhost:5174")
 @RestController
 @RequestMapping("/ordermanagement")
 public class OrderController {
@@ -27,4 +28,10 @@ public class OrderController {
     public Order createOrder(@RequestBody Order order){
         return orderService.createOrder(order);
     }
+
+
+    /*@GetMapping("/test")
+    public List<Order> test() {
+        return orderService.test();
+    }*/
 }
