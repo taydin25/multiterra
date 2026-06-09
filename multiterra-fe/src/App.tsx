@@ -6,7 +6,7 @@ import ProductManagement from "./pages/ProductManagement";
 import OrderManagement from "./pages/OrderManagement";
 import ListCustomer from "./pages/ListCustomer";
 import Login from "./pages/Login";
-
+import Home from "./pages/Home";
 
 function App() {
   return (
@@ -20,6 +20,7 @@ function App() {
         <Route path="/products" element={<ProductManagement />} />
         <Route path="/orders" element={<OrderManagement />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/" element={<Home />} />
 
       </Routes>
     </BrowserRouter>

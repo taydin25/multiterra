@@ -1,0 +1,78 @@
+.home-container {
+    padding-top: 140px; /* navbar yüksekliği */
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-bottom: 40px;
+}
+
+.hero-banner {
+    height: 280px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 54px;
+    font-weight: bold;
+
+    color: white;
+
+    border-radius: 20px;
+
+    background: linear-gradient(
+        90deg,
+        #2563eb,
+        #10b981
+    );
+
+    margin-bottom: 60px;
+}
+
+.welcome-title {
+    text-align: center;
+    color: white;
+    font-size: 56px;
+    margin-bottom: 20px;
+}
+
+.section-title {
+    text-align: center;
+    color: white;
+    margin-bottom: 40px;
+}
+
+.campaign-grid {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.campaign-card {
+    width: 320px;
+
+    background: #111827;
+
+    border: 1px solid #374151;
+
+    border-radius: 16px;
+
+    padding: 30px;
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.campaign-card:hover {
+    transform: translateY(-8px);
+}
+
+.campaign-card h3 {
+    color: white;
+    margin-bottom: 15px;
+}
+
+.campaign-card p {
+    color: #d1d5db;
+}
