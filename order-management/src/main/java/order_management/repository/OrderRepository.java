@@ -9,5 +9,6 @@ import java.util.UUID;
 public interface OrderRepository extends MongoRepository<Order, String> {
 
     List<Order> findByCustomerId(UUID customerId);
+    Order findByOrderNumber(String orderNumber);
 
 }

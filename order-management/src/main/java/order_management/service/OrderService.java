@@ -48,6 +48,12 @@ public class OrderService {
         return orderRepository.findAll();
     }
 
+    public Order cancellOrder(String orderNumber) {
+        Order foundOrder=orderRepository.findByOrderNumber(orderNumber);
+        foundOrder.setStatus(OrderStatus.CANCELLED);
+        return orderRepository.save(foundOrder);
+    }
+
     /*public List<Order> test(){    return mongoTemplate.findAll(Order.class); }
     @PostConstruct
     public void checkDb() {System.out.println("COUNT = " + mongoTemplate.getCollection("order_info").countDocuments());}

@@ -35,7 +35,10 @@ public class OrderController {
         return orderService.createOrder(order);
     }
 
-
+    @PatchMapping("/cancellOrder/{orderNumber}")
+    public Order cancellOrder(@PathVariable String orderNumber){
+        return orderService.cancellOrder(orderNumber);
+    }
 
     /*@GetMapping("/test")
     public List<Order> test() {
