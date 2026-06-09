@@ -17,7 +17,7 @@ function App() {
 });
   const [nationalId, setNationalId] = useState("");
 
- const createCustomer = async () => {
+ /*const createCustomer = async () => {
 
     const createRequest = {
     name: customer.name,
@@ -55,7 +55,7 @@ function App() {
     console.error(error);
     alert("Customer creation failed");
   }
-};
+};*/
   
   const findCustomer = async () => {
   try {
