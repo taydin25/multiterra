@@ -39,6 +39,7 @@ const login = async () => {
     localStorage.setItem("token", data.token);
     localStorage.setItem("username", data.username);
     localStorage.setItem("customerId", data.customerId);
+    localStorage.setItem("fullAddress", data.fullAddress);
 
   } catch (error) {
     console.error(error);

@@ -5,6 +5,7 @@ import order_management.service.OrderService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @CrossOrigin(origins = "http://localhost:5174")
 @RestController
@@ -24,10 +25,16 @@ public class OrderController {
         return orderService.getAllOrders();
     }
 
+    @GetMapping("/customer/{customerId}")
+    public List<Order> getOrdersByCustomerId(@PathVariable UUID customerId) {
+        return orderService.getOrdersByCustomerId(customerId);
+    }
+
     @PostMapping("/createOrder")
     public Order createOrder(@RequestBody Order order){
         return orderService.createOrder(order);
     }
+
 
 
     /*@GetMapping("/test")

@@ -25,6 +25,11 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public List<Order> getOrdersByCustomerId(UUID customerId) {
+
+        return orderRepository.findByCustomerId(customerId);
+    }
+
     public Order createOrder(Order order) {
 
         long count = orderRepository.count();

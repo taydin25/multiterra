@@ -84,9 +84,12 @@ function ProductManagement() {
       0
     );
 
+    const customerId = localStorage.getItem("customerId");
+    const fullAddress = localStorage.getItem("fullAddress");
+
     const orderRequest = {
-      customerId: "123e4567-e89b-12d3-a456-426614174000",
-      shippingAddress: "Kadıköy, İstanbul",
+      customerId: customerId,
+      shippingAddress: fullAddress,
       note: "Web üzerinden oluşturuldu.",
       currency: "TRY",
       items: groupedItems,
