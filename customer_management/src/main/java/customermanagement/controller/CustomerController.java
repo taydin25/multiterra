@@ -40,10 +40,16 @@ public class CustomerController {
         return customerRepository.findById(id).orElse(null);
     }
 
+    @PostMapping("/login")
+    public Customer login(@RequestBody Customer customer) {
+        return customerRepository.findByUsernameAndPassword(customer.getUsername(), customer.getPassword()).orElse(null);
+    }
+
     @GetMapping("/getCustomerByNationalId/{nationalId}")
     public Customer getCustomerByNationalId(@PathVariable String nationalId) {
         return customerRepository.findByNationalId(nationalId).orElse(null);
     }
+
 
     @DeleteMapping("/{id}")
     public void deleteCustomer(@PathVariable UUID id) {

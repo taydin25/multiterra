@@ -5,6 +5,8 @@ import CustomerManagement from "./pages/CustomerManagement";
 import ProductManagement from "./pages/ProductManagement";
 import OrderManagement from "./pages/OrderManagement";
 import ListCustomer from "./pages/ListCustomer";
+import Login from "./pages/Login";
+
 
 function App() {
   return (
@@ -17,6 +19,8 @@ function App() {
         <Route path="/customers" element={<CustomerManagement />} />
         <Route path="/products" element={<ProductManagement />} />
         <Route path="/orders" element={<OrderManagement />} />
+        <Route path="/login" element={<Login />} />
+
       </Routes>
     </BrowserRouter>
   );

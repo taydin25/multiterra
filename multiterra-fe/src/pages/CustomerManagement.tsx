@@ -104,7 +104,7 @@ function App() {
     <br />
     <br />
 
-    <button onClick={createCustomer}>Create Customer</button>
+    
     <button onClick={findCustomer}>Find Customer</button>
     <button onClick={listCustomers}>List Customers</button>
     <button onClick={updateCustomer}>Update Customer</button>

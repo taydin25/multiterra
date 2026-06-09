@@ -1,7 +1,19 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
+import { useState } from "react";
+
 
 function Navbar() {
+  const username = localStorage.getItem("username");
+
+const logout = () => {
+  localStorage.removeItem("token");
+  localStorage.removeItem("username");
+  localStorage.removeItem("customerId");
+
+  window.location.href = "/login";
+};
+
   return (
     <nav
       style={{
@@ -61,6 +73,44 @@ function Navbar() {
         </Link>
 
         <Link to="/register-customer">Become a Customer</Link>
+ 
+ {username ? (
+  <>
+    <span
+      style={{
+        color: "#10b981",
+        fontWeight: "bold"
+      }}
+    >
+      👤 {username}
+    </span>
+
+    <button
+      onClick={logout}
+      style={{
+        background: "#dc2626",
+        color: "white",
+        border: "none",
+        padding: "8px 12px",
+        borderRadius: "6px",
+        cursor: "pointer"
+      }}
+    >
+      Logout
+    </button>
+  </>
+) : (
+  <Link
+    to="/login"
+    style={{
+      textDecoration: "none",
+      color: "#2563eb"
+    }}
+  >
+    Login
+  </Link>
+)}
+      
       </div>
     </nav>
   );
