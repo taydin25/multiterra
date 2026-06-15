@@ -1,6 +1,7 @@
 package order_management.service;
 
 import jakarta.annotation.PostConstruct;
+import order_management.entity.Customer;
 import order_management.entity.Order;
 import order_management.enums.OrderStatus;
 import order_management.repository.OrderItemRepository;
@@ -21,8 +22,13 @@ public class OrderService {
     @Autowired
     MongoTemplate mongoTemplate;
 
-    public OrderService(OrderRepository orderRepository) {
+    private final CustomerServiceClient customerServiceClient;
+    private final EmailService emailService;
+
+    public OrderService(OrderRepository orderRepository, CustomerServiceClient customerServiceClient, EmailService emailService) {
         this.orderRepository = orderRepository;
+        this.customerServiceClient = customerServiceClient;
+        this.emailService = emailService;
     }
 
     public List<Order> getOrdersByCustomerId(UUID customerId) {
@@ -41,7 +47,19 @@ public class OrderService {
         order.setOrderDate(LocalDateTime.now());
         order.setId(UUID.randomUUID());
 
-        return orderRepository.save(order);
+        Order savedOrder =
+                orderRepository.save(order);
+
+        Customer customer = customerServiceClient.getCustomer(order.getCustomerId());
+
+        emailService.sendOrderMail(
+                customer.getEmail(),
+                savedOrder.getOrderNumber(),
+                savedOrder.getCurrency(),
+                savedOrder.getItems(),
+                savedOrder.getTotalPrice());
+
+        return savedOrder;
     }
 
     public List<Order> getAllOrders() {

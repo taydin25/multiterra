@@ -9,7 +9,7 @@ import product_catalog.repository.ProductRepository;
 
 import java.util.List;
 
-@CrossOrigin(origins = "http://localhost:5174")
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/productcatalog")
 @RequiredArgsConstructor
