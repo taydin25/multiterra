@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import product_catalog.repository.ProductRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -30,6 +31,9 @@ public class ProductController {
 
     @PostMapping
     public Product createProduct(@RequestBody Product product) {
+
+        product.setCreatedDate(LocalDateTime.now());
+        product.setUpdatedDate(LocalDateTime.now());
         return productRepository.save(product);
     }
 

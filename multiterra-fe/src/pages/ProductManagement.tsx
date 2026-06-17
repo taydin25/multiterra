@@ -143,14 +143,12 @@ function ProductManagement() {
         <div className="product-grid">
           {filteredProducts.map((product) => (
             <div className="product-card" key={product.productId}>
-              <img
+             <img
                 src={`/images/${product.productCode}.png`}
                 alt={product.productName}
                 className="product-image"
-                onError={(e) => {
-                  e.currentTarget.src = "/images/no-image.png";
-                }}
-              />
+                loading="lazy"
+               />
 
               <div className="product-info">
                 <h3>{product.productName}</h3>
