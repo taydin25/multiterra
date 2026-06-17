@@ -1,7 +1,22 @@
 import { useEffect, useState } from "react";
+import { isLoggedIn } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 function Profile() {
    const customerId = localStorage.getItem("customerId");
+const navigate = useNavigate();
+useEffect(() => {
+
+  if (!isLoggedIn()) {
+
+    navigate("/login");
+
+    return;
+  }
+
+  loadProfile();
+
+}, []);
 
    const [passwordData, setPasswordData] = useState({
   currentPassword: "",

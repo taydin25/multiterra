@@ -1,10 +1,11 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
-//import { useState } from "react";
 
 
 function Navbar() {
   const username = localStorage.getItem("username");
+  const customerId = localStorage.getItem("customerId");
+
 
 const logout = () => {
   localStorage.removeItem("token");
@@ -74,12 +75,9 @@ const logout = () => {
 
         <Link to="/register-customer">Become a Customer</Link>
 
-        <Link
-  to="/profile"
-  style={{ textDecoration: "none", color: "#2563eb" }}
->
-  Profile
-</Link>
+        {customerId && ( <Link to="/profile" style={{ textDecoration: "none", color: "#2563eb" }}>
+        Profile
+        </Link>)}
  
  {username ? (
   <>
@@ -107,6 +105,7 @@ const logout = () => {
     </button>
   </>
 ) : (
+
   <Link
     to="/login"
     style={{
@@ -116,6 +115,7 @@ const logout = () => {
   >
     Login
   </Link>
+  
 )}
       
       </div>

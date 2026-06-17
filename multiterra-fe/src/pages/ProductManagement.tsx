@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import "./ProductManagement.css";
+import { isLoggedIn } from "../utils/auth";
+import { useNavigate } from "react-router-dom";
 
 function ProductManagement() {
   const [products, setProducts] = useState<any[]>([]);
   const [searchText, setSearchText] = useState("");
   const [cart, setCart] = useState<any[]>([]);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
-
+  const navigate = useNavigate();
 
   useEffect(() => {
     loadProducts();
@@ -134,6 +136,21 @@ function ProductManagement() {
   }
 };
 
+const handleAddToCart = (product: any) => {
+
+    const customerId =
+      localStorage.getItem("customerId");
+
+    if (!customerId) {
+
+      navigate("/login");
+
+      return;
+    }
+
+    addToCart(product);
+  };
+
   return (
     <div className="page-layout">
       <div className="product-container">
@@ -195,7 +212,7 @@ function ProductManagement() {
 
                 <button
                   className="add-cart-btn"
-                  onClick={() => addToCart(product)}
+                  onClick={() => handleAddToCart(product)}
                 >
                   Add To Cart
                 </button>
