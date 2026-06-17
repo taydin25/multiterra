@@ -3,6 +3,8 @@ import "../css/CustomerRegistration.css";
 
 function CustomerRegistration() {
 
+  const [countryCode, setCountryCode] = useState("+90");
+
   const [customer, setCustomer] = useState({
     name: "",
     surname: "",
@@ -21,7 +23,22 @@ function CustomerRegistration() {
   });
 
   const registerCustomer = async () => {
-
+  if (
+    !customer.name ||
+    !customer.surname ||
+    !customer.email ||
+    !customer.phone_number ||
+    !customer.nationalId ||
+    !customer.country ||
+    !customer.city ||
+    !customer.district ||
+    !customer.address ||
+    !customer.username ||
+    !customer.password
+  ) {
+    alert("Please fill in all required fields.");
+    return;
+  }
     try {
 
       const response = await fetch(
@@ -87,15 +104,36 @@ function CustomerRegistration() {
           })
         }
       />
-<input
-        placeholder="Phone"
-        onChange={(e) =>
-          setCustomer({
-            ...customer,
-            phone_number: e.target.value
-          })
-        }
-      />
+<div className="phone-container">
+
+  <select
+    className="country-code"
+    value={countryCode}
+    onChange={(e) => setCountryCode(e.target.value)}
+  >
+    <option value="+90">🇹🇷 +90</option>
+    <option value="+1">🇺🇸 +1</option>
+    <option value="+44">🇬🇧 +44</option>
+    <option value="+49">🇩🇪 +49</option>
+    <option value="+33">🇫🇷 +33</option>
+  </select>
+
+  <input
+    type="tel"
+    placeholder="5XXXXXXXXX"
+    maxLength={10}
+    value={customer.phone_number}
+    onChange={(e) => {
+      const value = e.target.value.replace(/\D/g, "");
+
+      setCustomer({
+        ...customer,
+        phone_number: value
+      });
+    }}
+  />
+
+</div>
 </div>
       
 <div className="form-row">
@@ -218,7 +256,9 @@ function CustomerRegistration() {
       <br />
       <br />
 
-      <button onClick={registerCustomer}>
+      <button 
+        className="register-btn"
+        onClick={registerCustomer}>
         Register
       </button>
     </div>

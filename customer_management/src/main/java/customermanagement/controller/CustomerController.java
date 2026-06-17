@@ -1,6 +1,5 @@
 package customermanagement.controller;
 
-import customermanagement.entity.Address;
 import customermanagement.entity.Customer;
 import customermanagement.enums.CustomerStatus;
 import customermanagement.enums.UserRole;
@@ -34,7 +33,7 @@ public class CustomerController {
         customer.setStatus(String.valueOf(CustomerStatus.ACTIVE));//DEFAULT
         customer.setCreated_date(LocalDateTime.now());
         customer.setUpdated_date(LocalDateTime.now());
-        String fullAddress=customer.getAddress()+" "+customer.getCity()+"/"+customer.getCountry();
+        String fullAddress=customer.getAddress()+","+customer.getDistrict()+","+customer.getCity()+"/"+customer.getCountry();
         customer.setFullAddress(fullAddress);
 
         return customerRepository.save(customer);

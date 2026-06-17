@@ -63,3 +63,44 @@
     padding: 12px;
     border-radius: 8px;
 }
+
+.phone-container {
+    display: flex;
+    flex: 1;
+    gap: 0;
+}
+
+.country-code {
+    width: 120px;
+    border-radius: 10px 0 0 10px !important;
+}
+
+.phone-input {
+    border-radius: 0 10px 10px 0 !important;
+    flex: 1;
+}
+
+.register-btn {
+    width: 250px;
+    height: 50px;
+    margin: 40px auto 0 auto;
+    display: block;
+
+    background: #2563eb;
+    color: white;
+
+    border: none;
+    border-radius: 10px;
+
+    font-size: 16px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.register-btn:hover {
+    background: #1d4ed8;
+    transform: translateY(-2px);
+}
+
