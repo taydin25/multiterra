@@ -1,5 +1,6 @@
 package customermanagement.entity;
 
+import customermanagement.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -37,5 +38,8 @@ public class Customer {
     //AUTH
     private String username;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole role;
 
 }

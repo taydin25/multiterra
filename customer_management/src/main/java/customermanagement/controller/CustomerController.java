@@ -1,7 +1,9 @@
 package customermanagement.controller;
 
+import customermanagement.entity.Address;
 import customermanagement.entity.Customer;
 import customermanagement.enums.CustomerStatus;
+import customermanagement.enums.UserRole;
 import customermanagement.repository.CustomerRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,9 +30,12 @@ public class CustomerController {
     @PostMapping("/createCustomer")
     public Customer createCustomer(@RequestBody Customer customer) {
 
-        customer.setStatus(String.valueOf(CustomerStatus.INACTIVE));
+        customer.setRole(UserRole.CUSTOMER);//DEFAULT
+        customer.setStatus(String.valueOf(CustomerStatus.ACTIVE));//DEFAULT
         customer.setCreated_date(LocalDateTime.now());
         customer.setUpdated_date(LocalDateTime.now());
+        String fullAddress=customer.getAddress()+" "+customer.getCity()+"/"+customer.getCountry();
+        customer.setFullAddress(fullAddress);
 
         return customerRepository.save(customer);
     }

@@ -1,4 +1,6 @@
 package customermanagement.enums;
 
-public enum aa {
+public enum UserRole {
+    ADMIN,
+    CUSTOMER
 }

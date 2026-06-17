@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "../css/CustomerRegistration.css";
 
 function CustomerRegistration() {
 
@@ -10,13 +11,11 @@ function CustomerRegistration() {
     nationalId: "",
     status: "ACTIVE",
     type: "INDIVIDUAL",
-
     country: "",
     city: "",
     district: "",
     address: "",
     fullAddress: "",
-
     username: "",
     password: ""
   });
@@ -54,6 +53,7 @@ function CustomerRegistration() {
     <div style={{ padding: "30px" }}>
       <h1>Become a Customer</h1>
 
+<div className="form-row">
       <input
         placeholder="Name"
         onChange={(e) =>
@@ -74,7 +74,11 @@ function CustomerRegistration() {
         }
       />
 
-      <input
+      
+</div>
+      
+<div className="form-row">
+  <input
         placeholder="Email"
         onChange={(e) =>
           setCustomer({
@@ -83,8 +87,7 @@ function CustomerRegistration() {
           })
         }
       />
-
-      <input
+<input
         placeholder="Phone"
         onChange={(e) =>
           setCustomer({
@@ -93,48 +96,78 @@ function CustomerRegistration() {
           })
         }
       />
+</div>
+      
+<div className="form-row">
+   <select
+  value={customer.country}
+  onChange={(e) =>
+    setCustomer({
+      ...customer,
+      country: e.target.value,
+      city: "",
+      district: ""
+    })
+  }
+>
+  <option value="">Select Country</option>
+  <option value="Turkey">Turkey</option>
+  <option value="Germany">Germany</option>
+  <option value="United Kingdom">United Kingdom</option>
+</select>
+  <select
+  value={customer.city}
+  onChange={(e) =>
+    setCustomer({
+      ...customer,
+      city: e.target.value,
+      district: ""
+    })
+  }
+>
+  <option value="">Select City</option>
 
-      <input
-        placeholder="National Id"
-        onChange={(e) =>
-          setCustomer({
-            ...customer,
-            nationalId: e.target.value
-          })
-        }
-      />
+  {customer.country === "Turkey" && (
+    <>
+      <option value="Istanbul">Istanbul</option>
+      <option value="Ankara">Ankara</option>
+      <option value="Izmir">Izmir</option>
+      <option value="Antalya">Antalya</option>
+    </>
+  )}
+</select>
+</div>
 
-      <input
-        placeholder="Country"
-        onChange={(e) =>
-          setCustomer({
-            ...customer,
-            country: e.target.value
-          })
-        }
-      />
 
-      <input
-        placeholder="City"
-        onChange={(e) =>
-          setCustomer({
-            ...customer,
-            city: e.target.value
-          })
-        }
-      />
+<div className="form-row">
+  <select
+  value={customer.district}
+  onChange={(e) =>
+    setCustomer({
+      ...customer,
+      district: e.target.value
+    })
+  }
+>
+  <option value="">Select District</option>
 
-      <input
-        placeholder="District"
-        onChange={(e) =>
-          setCustomer({
-            ...customer,
-            district: e.target.value
-          })
-        }
-      />
+  {customer.city === "Istanbul" && (
+    <>
+      <option value="Kadikoy">Kadikoy</option>
+      <option value="Maltepe">Maltepe</option>
+      <option value="Besiktas">Besiktas</option>
+    </>
+  )}
 
-      <input
+  {customer.city === "Ankara" && (
+    <>
+      <option value="Cankaya">Cankaya</option>
+      <option value="Kecioren">Kecioren</option>
+    </>
+  )}
+</select>
+
+ <input
         placeholder="Address"
         onChange={(e) =>
           setCustomer({
@@ -143,8 +176,10 @@ function CustomerRegistration() {
           })
         }
       />
+</div>
 
-      <input
+<div className="form-row">
+   <input
         placeholder="Username"
         onChange={(e) =>
           setCustomer({
@@ -154,7 +189,7 @@ function CustomerRegistration() {
         }
       />
 
-      <input
+       <input
         type="password"
         placeholder="Password"
         onChange={(e) =>
@@ -164,6 +199,21 @@ function CustomerRegistration() {
           })
         }
       />
+</div>
+
+     
+<div className="form-row">
+   <input
+        placeholder="National Id"
+        onChange={(e) =>
+          setCustomer({
+            ...customer,
+            nationalId: e.target.value
+          })
+        }
+      />
+</div>
+     
 
       <br />
       <br />
