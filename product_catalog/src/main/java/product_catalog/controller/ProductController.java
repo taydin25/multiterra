@@ -29,7 +29,7 @@ public class ProductController {
                 .orElseThrow(() -> new RuntimeException("Product not found"));
     }
 
-    @PostMapping
+    @PostMapping("/createProduct")
     public Product createProduct(@RequestBody Product product) {
 
         product.setCreatedDate(LocalDateTime.now());

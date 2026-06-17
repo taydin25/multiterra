@@ -38,18 +38,25 @@ function ProductManagement() {
     setCart((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const filteredProducts = products.filter(
-    (product) =>
-      product.productName
-        ?.toLowerCase()
-        .includes(searchText.toLowerCase()) ||
-      product.productCode
-        ?.toLowerCase()
-        .includes(searchText.toLowerCase()) ||
-      product.brandName
-        ?.toLowerCase()
-        .includes(searchText.toLowerCase())
-  );
+  const filteredProducts = products.filter((product) => {
+
+  const matchesSearch =
+    product.productName
+      ?.toLowerCase()
+      .includes(searchText.toLowerCase()) ||
+    product.productCode
+      ?.toLowerCase()
+      .includes(searchText.toLowerCase()) ||
+    product.brandName
+      ?.toLowerCase()
+      .includes(searchText.toLowerCase());
+
+  const hasStock = product.stockQuantity > 0;
+
+  const isActive = product.status === "ACTIVE";
+
+  return matchesSearch && hasStock && isActive;
+});
 
   const totalPrice = cart.reduce(
     (sum, item) => sum + Number(item.price),
@@ -174,9 +181,9 @@ function ProductManagement() {
                   Stock: {product.stockQuantity}
                 </div>
 
-                <div className="product-details">
+               {/* <div className="product-details">
                   Status: {product.status}
-                </div>
+                </div> */}
 
                 <div className="product-details">
                   Category: {product.category}
