@@ -70,7 +70,7 @@ const logout = () => {
           to="/orders"
           style={{ textDecoration: "none", color: "#2563eb" }}
         >
-          Orders
+          My Orders
         </Link>
 
         <Link to="/register-customer">Become a Customer</Link>
