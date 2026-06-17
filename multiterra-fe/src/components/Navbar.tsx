@@ -73,6 +73,13 @@ const logout = () => {
         </Link>
 
         <Link to="/register-customer">Become a Customer</Link>
+
+        <Link
+  to="/profile"
+  style={{ textDecoration: "none", color: "#2563eb" }}
+>
+  Profile
+</Link>
  
  {username ? (
   <>

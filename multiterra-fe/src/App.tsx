@@ -7,6 +7,7 @@ import OrderManagement from "./pages/OrderManagement";
 import ListCustomer from "./pages/ListCustomer";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -21,6 +22,11 @@ function App() {
         <Route path="/orders" element={<OrderManagement />} />
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Home />} />
+        <Route path="/profile" element={<Profile />}
+
+        
+/>
+        
 
       </Routes>
     </BrowserRouter>

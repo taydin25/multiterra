@@ -23,6 +23,16 @@ function CustomerRegistration() {
   });
 
   const registerCustomer = async () => {
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(customer.email)) {
+
+    alert("Invalid email format");
+
+    return;
+  }
+
   if (
     !customer.name ||
     !customer.surname ||
@@ -53,7 +63,10 @@ function CustomerRegistration() {
       );
 
       if (!response.ok) {
-        throw new Error("Customer creation failed");
+         const errorMessage = (await response.json()).message;
+         alert(errorMessage);
+
+         return;
       }
 
       alert("Customer created successfully");
@@ -96,7 +109,9 @@ function CustomerRegistration() {
       
 <div className="form-row">
   <input
+        type="email"
         placeholder="Email"
+        value={customer.email}
         onChange={(e) =>
           setCustomer({
             ...customer,
