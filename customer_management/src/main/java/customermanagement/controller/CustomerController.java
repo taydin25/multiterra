@@ -1,6 +1,7 @@
 package customermanagement.controller;
 
 import customermanagement.entity.Customer;
+import customermanagement.entity.Password;
 import customermanagement.enums.CustomerStatus;
 import customermanagement.enums.UserRole;
 import customermanagement.exceptions.CustomerAlreadyExistsException;
@@ -73,6 +74,16 @@ public class CustomerController {
         updateCustomer.setUpdated_date(LocalDateTime.now());
 
         return customerRepository.save(updateCustomer);
+    }
+
+    @PutMapping("/changePassword/{customerId}")
+    public Customer  changePassword(@RequestBody Password password, @PathVariable UUID customerId)
+    {
+        Customer updatePassCus = customerRepository.findById(customerId).orElse(null);
+        updatePassCus.setPassword(password.getConfirmPassword());
+        updatePassCus.setUpdated_date(LocalDateTime.now());
+
+        return customerRepository.save(updatePassCus);
     }
 
     @DeleteMapping("/{id}")

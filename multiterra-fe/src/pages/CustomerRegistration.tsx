@@ -39,6 +39,7 @@ function CustomerRegistration() {
     !customer.email ||
     !customer.phone_number ||
     !customer.nationalId ||
+    !customer.type ||
     !customer.country ||
     !customer.city ||
     !customer.district ||
@@ -265,6 +266,20 @@ function CustomerRegistration() {
           })
         }
       />
+
+        <select
+  value={customer.type}
+  onChange={(e) =>
+    setCustomer({
+      ...customer,
+      type: e.target.value
+    })
+  }
+>
+  <option value="">Select Customer Type</option>
+  <option value="CORPORATE">Corporate</option>
+  <option value="INDIVIDUAL">Individual</option>
+</select>
 </div>
      
 

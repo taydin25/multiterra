@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 function Profile() {
    const customerId = localStorage.getItem("customerId");
 
+   const [passwordData, setPasswordData] = useState({
+  currentPassword: "",
+  newPassword: "",
+  confirmPassword: ""
+});
+
   const [customer, setCustomer] = useState<any>({});
 
   useEffect(() => {
@@ -11,10 +17,57 @@ function Profile() {
 
   }, []);
 
+const changePassword = async () => {
+
+  if (
+    passwordData.newPassword !==
+    passwordData.confirmPassword
+  ) {
+
+    alert("Passwords do not match");
+
+    return;
+  }
+
+  try {
+
+    const customerId =
+      localStorage.getItem("customerId");
+
+    const response = await fetch(
+      `http://localhost:8080/customermanagement/customers/changePassword/${customerId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(passwordData)
+      }
+    );
+
+    if (!response.ok) {
+
+      const error =
+        await response.text();
+
+      alert(error);
+
+      return;
+    }
+
+    alert("Password updated successfully");
+
+  } catch (error) {
+
+    console.error(error);
+
+  }
+};
+
   const loadProfile = async () => {
 
     try {
-      
+
       const response = await fetch(
         `http://localhost:8080/customermanagement/customers/${customerId}`
       );
@@ -65,7 +118,8 @@ function Profile() {
     <div className="profile-container">
 
       <h1>My Profile</h1>
-
+       
+      <h2>Update Profile</h2>
       <input
         value={customer.name || ""}
         onChange={(e) =>
@@ -116,9 +170,53 @@ function Profile() {
         }
       />
 
-      <button onClick={updateProfile}>
+ <button onClick={updateProfile}>
         Update Profile
       </button>
+       <h1></h1>
+      <h2>Change Password</h2>
+
+<input
+  type="password"
+  placeholder="Current Password"
+  value={passwordData.currentPassword}
+  onChange={(e) =>
+    setPasswordData({
+      ...passwordData,
+      currentPassword: e.target.value
+    })
+  }
+/>
+
+<input
+  type="password"
+  placeholder="New Password"
+  value={passwordData.newPassword}
+  onChange={(e) =>
+    setPasswordData({
+      ...passwordData,
+      newPassword: e.target.value
+    })
+  }
+/>
+
+<input
+  type="password"
+  placeholder="Confirm Password"
+  value={passwordData.confirmPassword}
+  onChange={(e) =>
+    setPasswordData({
+      ...passwordData,
+      confirmPassword: e.target.value
+    })
+  }
+/>
+
+<button onClick={changePassword}>
+  Change Password
+</button>
+
+     
 
     </div>
   );
