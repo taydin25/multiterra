@@ -5,6 +5,8 @@ function ProductManagement() {
   const [products, setProducts] = useState<any[]>([]);
   const [searchText, setSearchText] = useState("");
   const [cart, setCart] = useState<any[]>([]);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
 
   useEffect(() => {
     loadProducts();
@@ -144,11 +146,16 @@ function ProductManagement() {
           {filteredProducts.map((product) => (
             <div className="product-card" key={product.productId}>
              <img
-                src={`/images/${product.productCode}.png`}
-                alt={product.productName}
-                className="product-image"
-                loading="lazy"
-               />
+               src={`/images/${product.productCode}.png`}
+               alt={product.productName}
+               className="product-image"
+               loading="lazy"
+               onClick={() =>
+                     setSelectedImage(
+                      `/images/${product.productCode}.png`
+                )
+  }
+/>
 
               <div className="product-info">
                 <h3>{product.productName}</h3>
@@ -230,7 +237,20 @@ function ProductManagement() {
           </>
         )}
       </div>
+      {selectedImage && (
+  <div
+    className="image-modal"
+    onClick={() => setSelectedImage(null)}
+  >
+    <img
+      src={selectedImage}
+      alt="Product"
+      className="modal-image"
+    />
+  </div>
+)}
     </div>
+    
   );
 }
 
