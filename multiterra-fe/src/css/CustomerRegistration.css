@@ -52,7 +52,12 @@
     margin-bottom: 15px;
 }
 
-.form-row input,
+.form-row input {
+    flex: 1;
+    padding: 12px;
+    border-radius: 8px;
+}
+
 .form-row select {
     flex: 1;
     padding: 12px;
