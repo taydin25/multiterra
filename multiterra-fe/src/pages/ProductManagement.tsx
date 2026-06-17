@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./ProductManagement.css";
-import { isLoggedIn } from "../utils/auth";
+//import { isLoggedIn } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
 
 function ProductManagement() {
