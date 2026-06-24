@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./ProductManagement.css";
 //import { isLoggedIn } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { API_URLS } from "../config/api.ts";
 
 function ProductManagement() {
   const [products, setProducts] = useState<any[]>([]);
@@ -17,7 +18,7 @@ function ProductManagement() {
   const loadProducts = async () => {
     try {
       const response = await fetch(
-        "https://multiterra.onrender.com/productcatalog/getAllProducts"
+        API_URLS.PRODUCT + "/getAllProducts"
       );
 
       if (!response.ok) {
