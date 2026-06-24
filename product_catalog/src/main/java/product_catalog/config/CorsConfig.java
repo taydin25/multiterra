@@ -19,7 +19,8 @@ public class CorsConfig {
                 registry.addMapping("/**")
                         .allowedOrigins(
                                 "http://localhost:5173",
-                                "https://multiterra-223h90w8v-tunahanaydin2707-8460s-projects.vercel.app"
+                                "https://multiterra-223h90w8v-tunahanaydin2707-8460s-projects.vercel.app",
+                                "https://multiterra-fe.vercel.app"
                         )
                         .allowedMethods("*")
                         .allowedHeaders("*");
