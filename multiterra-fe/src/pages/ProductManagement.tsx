@@ -17,7 +17,7 @@ function ProductManagement() {
   const loadProducts = async () => {
     try {
       const response = await fetch(
-        "http://localhost:8081/productcatalog/getAllProducts"
+        "https://multiterra.onrender.com/productcatalog/getAllProducts"
       );
 
       if (!response.ok) {
