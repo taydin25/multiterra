@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URLS } from "../config/api.ts";
+
 function App() {
 
   const [customer, setCustomer] = useState({
@@ -60,7 +62,7 @@ function App() {
   const findCustomer = async () => {
   try {
     const response = await fetch(
-      `http://localhost:8080/customermanagement/customers/getCustomerByNationalId/${nationalId}`
+      `${API_URLS.CUSTOMER}/customers/getCustomerByNationalId/${nationalId}`
     );
 
     if (!response.ok) {

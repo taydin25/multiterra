@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../css/CustomerRegistration.css";
+import { API_URLS } from "../config/api.ts";
 
 function CustomerRegistration() {
 
@@ -53,7 +54,7 @@ function CustomerRegistration() {
     try {
 
       const response = await fetch(
-        "http://localhost:8080/customermanagement/customers/createCustomer",
+        API_URLS.CUSTOMER + "/customers/createCustomer",
         {
           method: "POST",
           headers: {
