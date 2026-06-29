@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import { API_URLS } from "../config/api.ts";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -10,7 +10,7 @@ function Login() {
 const login = async () => {
   try {
     const response = await fetch(
-      "http://localhost:8080/customermanagement/customers/login",
+      `${API_URLS.CUSTOMER}/customers/login`,
       {
         method: "POST",
         headers: {
