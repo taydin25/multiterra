@@ -1,6 +1,6 @@
 package order_management.service;
 
-import jakarta.annotation.PostConstruct;
+//import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import order_management.entity.Customer;
 import order_management.entity.Order;
@@ -49,6 +49,7 @@ public class OrderService {
         Order savedOrder = orderRepository.save(order);
 
         Customer customer = customerServiceClient.getCustomer(order.getCustomerId());
+        log.info("Customer: {}", customer);
         try {
                 emailService.sendOrderMail(
                 customer.getEmail(),
