@@ -47,13 +47,13 @@ public class OrderService {
         }
 
         Order savedOrder = orderRepository.save(order);
-
-        Customer customer = customerServiceClient.getCustomer(order.getCustomerId());
-        log.info("Customer response: id={}, name={}, email={}",
-                customer.getCustomerId(),
-                customer.getName(),
-                customer.getEmail());
+        log.info("Customer information will be reached successfully");
         try {
+            Customer customer = customerServiceClient.getCustomer(order.getCustomerId());
+            log.info("Customer response: id={}, name={}, email={}",
+                    customer.getCustomerId(),
+                    customer.getName(),
+                    customer.getEmail());
                 emailService.sendOrderMail(
                 customer.getEmail(),
                 savedOrder.getOrderNumber(),
