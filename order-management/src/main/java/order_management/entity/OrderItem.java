@@ -1,14 +1,15 @@
 package order_management.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
 import java.math.BigDecimal;
 import java.util.UUID;
 
+
+@Entity
 @Data
-@Document(collection = "order_items")
+@Table(name = "order_item",schema = "orders")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -16,7 +17,14 @@ import java.util.UUID;
 @Builder
 public class OrderItem {
 
-    //private UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private UUID id;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    @JsonBackReference
+    private Order order;
 
     private String productCode;
 

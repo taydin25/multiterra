@@ -3,11 +3,9 @@ package order_management.service;
 import jakarta.annotation.PostConstruct;
 import order_management.entity.Customer;
 import order_management.entity.Order;
+import order_management.entity.OrderItem;
 import order_management.enums.OrderStatus;
-import order_management.repository.OrderItemRepository;
 import order_management.repository.OrderRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -18,10 +16,6 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-
-    @Autowired
-    MongoTemplate mongoTemplate;
-
     private final CustomerServiceClient customerServiceClient;
     private final EmailService emailService;
 
@@ -45,7 +39,10 @@ public class OrderService {
         order.setCreatedDate(LocalDateTime.now());
         order.setUpdatedDate(LocalDateTime.now());
         order.setOrderDate(LocalDateTime.now());
-        order.setId(UUID.randomUUID());
+
+        for (OrderItem item : order.getItems()) {
+            item.setOrder(order);
+        }
 
         Order savedOrder =
                 orderRepository.save(order);

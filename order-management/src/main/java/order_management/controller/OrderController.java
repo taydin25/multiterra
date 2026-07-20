@@ -40,8 +40,4 @@ public class OrderController {
         return orderService.cancellOrder(orderNumber);
     }
 
-    /*@GetMapping("/test")
-    public List<Order> test() {
-        return orderService.test();
-    }*/
 }
