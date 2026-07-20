@@ -49,7 +49,10 @@ public class OrderService {
         Order savedOrder = orderRepository.save(order);
 
         Customer customer = customerServiceClient.getCustomer(order.getCustomerId());
-        log.info("Customer: {}", customer);
+        log.info("Customer response: id={}, name={}, email={}",
+                customer.getCustomerId(),
+                customer.getName(),
+                customer.getEmail());
         try {
                 emailService.sendOrderMail(
                 customer.getEmail(),
