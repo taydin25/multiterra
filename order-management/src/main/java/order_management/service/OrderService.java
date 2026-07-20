@@ -1,6 +1,7 @@
 package order_management.service;
 
 import jakarta.annotation.PostConstruct;
+import lombok.extern.slf4j.Slf4j;
 import order_management.entity.Customer;
 import order_management.entity.Order;
 import order_management.entity.OrderItem;
@@ -12,6 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @Service
 public class OrderService {
 
@@ -44,18 +46,19 @@ public class OrderService {
             item.setOrder(order);
         }
 
-        Order savedOrder =
-                orderRepository.save(order);
+        Order savedOrder = orderRepository.save(order);
 
         Customer customer = customerServiceClient.getCustomer(order.getCustomerId());
-
-        emailService.sendOrderMail(
+        try {
+                emailService.sendOrderMail(
                 customer.getEmail(),
                 savedOrder.getOrderNumber(),
                 savedOrder.getCurrency(),
                 savedOrder.getItems(),
                 savedOrder.getTotalPrice());
-
+        } catch (Exception e) {
+        log.error("Send Mail Error", e);
+        }
         return savedOrder;
     }
 
