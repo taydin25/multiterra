@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URLS } from "../config/api.ts";
 
 function OrderManagement() {
 
@@ -25,7 +26,7 @@ function OrderManagement() {
       }
 
       const response = await fetch(
-        `http://localhost:8083/ordermanagement/customer/${customerId}`
+        API_URLS.ORDER + "/ordermanagement/customer/${customerId}"
       );
 
       const data = await response.json();
@@ -52,7 +53,7 @@ const cancelOrder = async (orderNumber: string) => {
   try {
 
     const response = await fetch(
-      `http://localhost:8083/ordermanagement/cancellOrder/${orderNumber}`,
+      API_URLS.ORDER + "/ordermanagement/cancellOrder/${orderNumber}",
       {
         method: "PATCH"
       }

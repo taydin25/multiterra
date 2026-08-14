@@ -109,7 +109,7 @@ function ProductManagement() {
     };
 
     const response = await fetch(
-      "http://localhost:8083/ordermanagement/createOrder",
+      API_URLS.ORDER + "/ordermanagement/createOrder",
       {
         method: "POST",
         headers: {
