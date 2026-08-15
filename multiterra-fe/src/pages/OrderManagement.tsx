@@ -25,9 +25,9 @@ function OrderManagement() {
         return;
       }
 
-      const response = await fetch(
-        API_URLS.ORDER + "/ordermanagement/customer/${customerId}"
-      );
+    const response = await fetch(
+      `${API_URLS.ORDER}/ordermanagement/customer/${customerId}`
+    );
 
       const data = await response.json();
 
