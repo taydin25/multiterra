@@ -53,11 +53,10 @@ const cancelOrder = async (orderNumber: string) => {
   try {
 
     const response = await fetch(
-      API_URLS.ORDER + "/ordermanagement/cancellOrder/${orderNumber}",
-      {
-        method: "PATCH"
-      }
-    );
+    `${API_URLS.ORDER}/ordermanagement/cancellOrder/${orderNumber}`,
+    {
+      method: "PATCH"
+    });
 
     if (!response.ok) {
       throw new Error("Order cancellation failed");
