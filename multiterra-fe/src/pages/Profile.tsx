@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { isLoggedIn } from "../utils/auth";
 import { useNavigate } from "react-router-dom";
+import { API_URLS } from "../config/api.ts";
 
 function Profile() {
    const customerId = localStorage.getItem("customerId");
@@ -50,7 +51,7 @@ const changePassword = async () => {
       localStorage.getItem("customerId");
 
     const response = await fetch(
-      `http://localhost:8080/customermanagement/customers/changePassword/${customerId}`,
+      `${API_URLS.CUSTOMER}/customers/changePassword/${customerId}`,
       {
         method: "PUT",
         headers: {
@@ -84,7 +85,7 @@ const changePassword = async () => {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/customermanagement/customers/${customerId}`
+        `${API_URLS.CUSTOMER}/customers/${customerId}`
       );
 
       const data = await response.json();
@@ -103,7 +104,7 @@ const changePassword = async () => {
     try {
 
       const response = await fetch(
-        `http://localhost:8080/customermanagement/customers/updateCustomer/${customerId}`,
+        `${API_URLS.CUSTOMER}/customers/updateCustomer/${customerId}`,
         {
           method: "PUT",
           headers: {
