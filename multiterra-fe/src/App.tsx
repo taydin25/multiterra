@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import CustomerRegistration from "./pages/CustomerRegistration";
 import Navbar from "./components/Navbar";
 import CustomerManagement from "./pages/CustomerManagement";
@@ -10,25 +12,62 @@ import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 
 function App() {
+
+  const [username, setUsername] = useState<string | null>(() => {
+    return localStorage.getItem("username");
+  });
+
   return (
     <BrowserRouter>
-      <Navbar />
+
+      <Navbar username={username} setUsername={setUsername} />
 
       <Routes>
-        <Route path="/register-customer" element={<CustomerRegistration />}/>
-        <Route path="/customers/list" element={<ListCustomer />} />
-        <Route path="/customers" element={<CustomerManagement />} />
-        <Route path="/products" element={<ProductManagement />} />
-        <Route path="/orders" element={<OrderManagement />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/profile" element={<Profile />}
 
-        
-/>
-        
+        <Route
+          path="/register-customer"
+          element={<CustomerRegistration />}
+        />
+
+        <Route
+          path="/customers/list"
+          element={<ListCustomer />}
+        />
+
+        <Route
+          path="/customers"
+          element={<CustomerManagement />}
+        />
+
+        <Route
+          path="/products"
+          element={<ProductManagement />}
+        />
+
+        <Route
+          path="/orders"
+          element={<OrderManagement />}
+        />
+
+        <Route
+          path="/login"
+          element={
+            <Login setUsername={setUsername} />
+          }
+        />
+
+        <Route
+          path="/"
+          element={<Home />}
+        />
+
+        <Route
+          path="/profile"
+          element={<Profile />}
+        />
 
       </Routes>
+
     </BrowserRouter>
   );
 }

@@ -1,19 +1,23 @@
 import { Link } from "react-router-dom";
 import logo from "../assets/logo.png";
 
+interface NavbarProps {
+  username: string | null;
+  setUsername: (username: string | null) => void;
+}
 
-function Navbar() {
-  const username = localStorage.getItem("username");
+function Navbar({ username, setUsername }: NavbarProps) {
+
   const customerId = localStorage.getItem("customerId");
 
+  const logout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    localStorage.removeItem("customerId");
+    localStorage.removeItem("fullAddress");
 
-const logout = () => {
-  localStorage.removeItem("token");
-  localStorage.removeItem("username");
-  localStorage.removeItem("customerId");
-
-  window.location.href = "/login";
-};
+    setUsername(null);
+  };
 
   return (
     <nav
@@ -32,6 +36,7 @@ const logout = () => {
         zIndex: 1000,
       }}
     >
+
       <Link to="/">
         <img
           src={logo}
@@ -52,72 +57,90 @@ const logout = () => {
           fontWeight: "600",
         }}
       >
+
         <Link
           to="/customers"
-          style={{ textDecoration: "none", color: "#2563eb" }}
+          style={{
+            textDecoration: "none",
+            color: "#2563eb"
+          }}
         >
           Customers
         </Link>
 
         <Link
           to="/products"
-          style={{ textDecoration: "none", color: "#2563eb" }}
+          style={{
+            textDecoration: "none",
+            color: "#2563eb"
+          }}
         >
           Products
         </Link>
 
         <Link
           to="/orders"
-          style={{ textDecoration: "none", color: "#2563eb" }}
+          style={{
+            textDecoration: "none",
+            color: "#2563eb"
+          }}
         >
           My Orders
         </Link>
 
-        <Link to="/register-customer">Become a Customer</Link>
+        <Link to="/register-customer">
+          Become a Customer
+        </Link>
 
-        {customerId && ( <Link to="/profile" style={{ textDecoration: "none", color: "#2563eb" }}>
-        Profile
-        </Link>)}
- 
- {username ? (
-  <>
-    <span
-      style={{
-        color: "#10b981",
-        fontWeight: "bold"
-      }}
-    >
-      👤 {username}
-    </span>
+        {customerId && (
+          <Link
+            to="/profile"
+            style={{
+              textDecoration: "none",
+              color: "#2563eb"
+            }}
+          >
+            Profile
+          </Link>
+        )}
 
-    <button
-      onClick={logout}
-      style={{
-        background: "#dc2626",
-        color: "white",
-        border: "none",
-        padding: "8px 12px",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-    >
-      Logout
-    </button>
-  </>
-) : (
+        {username ? (
+          <>
+            <span
+              style={{
+                color: "#10b981",
+                fontWeight: "bold"
+              }}
+            >
+              👤 {username}
+            </span>
 
-  <Link
-    to="/login"
-    style={{
-      textDecoration: "none",
-      color: "#2563eb"
-    }}
-  >
-    Login
-  </Link>
-  
-)}
-      
+            <button
+              onClick={logout}
+              style={{
+                background: "#dc2626",
+                color: "white",
+                border: "none",
+                padding: "8px 12px",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              Logout
+            </button>
+          </>
+        ) : (
+          <Link
+            to="/login"
+            style={{
+              textDecoration: "none",
+              color: "#2563eb"
+            }}
+          >
+            Login
+          </Link>
+        )}
+
       </div>
     </nav>
   );
