@@ -4,6 +4,7 @@ import com.resend.Resend;
 import com.resend.services.emails.model.CreateEmailOptions;
 import com.resend.services.emails.model.CreateEmailResponse;
 import lombok.extern.slf4j.Slf4j;
+import order_management.event.OrderItemEvent;
 import org.jspecify.annotations.NonNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -26,7 +27,7 @@ public class EmailService {
             String email,
             String orderNumber,
             String currency,
-            List<OrderItem> items,
+            List<OrderItemEvent> items,
             BigDecimal totalPrice
     ) {
 
@@ -110,10 +111,10 @@ public class EmailService {
         }
     }
 
-    private static @NonNull StringBuilder createItemsHtml(String currency, List<OrderItem> items) {
+    private static @NonNull StringBuilder createItemsHtml(String currency, List<OrderItemEvent> items) {
         StringBuilder itemsHtml = new StringBuilder();
 
-        for (OrderItem item : items) {
+        for (OrderItemEvent item : items) {
             itemsHtml.append("""
                     <tr>
                         <td style="padding: 8px; border-bottom: 1px solid #ddd;">

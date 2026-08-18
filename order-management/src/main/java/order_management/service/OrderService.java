@@ -6,6 +6,8 @@ import order_management.entity.Customer;
 import order_management.entity.Order;
 import order_management.entity.OrderItem;
 import order_management.enums.OrderStatus;
+import order_management.event.OrderCreatedEvent;
+import order_management.event.OrderItemEvent;
 import order_management.repository.OrderRepository;
 import org.springframework.stereotype.Service;
 
@@ -18,13 +20,11 @@ import java.util.UUID;
 public class OrderService {
 
     private final OrderRepository orderRepository;
-    private final CustomerServiceClient customerServiceClient;
-    private final EmailService emailService;
+    private final RabbitMQProducer rabbitMQProducer;
 
-    public OrderService(OrderRepository orderRepository, CustomerServiceClient customerServiceClient, EmailService emailService) {
+    public OrderService(OrderRepository orderRepository, CustomerServiceClient customerServiceClient, EmailService emailService,RabbitMQProducer rabbitMQProducer) {
         this.orderRepository = orderRepository;
-        this.customerServiceClient = customerServiceClient;
-        this.emailService = emailService;
+        this.rabbitMQProducer= rabbitMQProducer;
     }
 
     public List<Order> getOrdersByCustomerId(UUID customerId) {
@@ -47,22 +47,29 @@ public class OrderService {
         }
 
         Order savedOrder = orderRepository.save(order);
-        log.info("Customer information will be reached successfully");
-        try {
-            Customer customer = customerServiceClient.getCustomer(order.getCustomerId());
-            log.info("Customer response: id={}, name={}, email={}",
-                    customer.getCustomerId(),
-                    customer.getName(),
-                    customer.getEmail());
-                emailService.sendOrderMail(
-                customer.getEmail(),
-                savedOrder.getOrderNumber(),
-                savedOrder.getCurrency(),
-                savedOrder.getItems(),
-                savedOrder.getTotalPrice());
-        } catch (Exception e) {
-        log.error("Send Mail Error", e);
-        }
+        // ORDER ITEM -> EVENT ITEM
+        List<OrderItemEvent> itemEvents = savedOrder.getItems()
+                .stream()
+                .map(item -> OrderItemEvent.builder()
+                        .productCode(item.getProductCode())
+                        .productName(item.getProductName())
+                        .quantity(item.getQuantity())
+                        .unitPrice(item.getUnitPrice())
+                        .totalPrice(item.getTotalPrice())
+                        .build())
+                .toList();
+
+        OrderCreatedEvent event = OrderCreatedEvent.builder()
+                .eventType("ORDER_CREATED")
+                .orderId(savedOrder.getId())
+                .orderNumber(savedOrder.getOrderNumber())
+                .customerId(savedOrder.getCustomerId())
+                .totalPrice(savedOrder.getTotalPrice())
+                .currency(savedOrder.getCurrency())
+                .items(itemEvents)
+                .build();
+
+        rabbitMQProducer.sendOrderCreatedEvent(event);
         return savedOrder;
     }
 
